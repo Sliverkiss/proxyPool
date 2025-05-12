@@ -5,6 +5,10 @@ from output import http_yanzheng
 
 app = Flask(__name__)
 
+# 初始化代理池文件数据
+get_request.get_http()
+http_yanzheng.main()
+
 @app.route('/random', methods=['GET'])
 def random_route():
     output_filename = "output/http.txt"
