@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 import random
 from request_abt import get_request
 from output import http_yanzheng
@@ -17,6 +17,15 @@ def random_route():
         return random.choice(proxies)
     else:
         return 'No proxies found', 404
+
+@app.route('/all', methods=['GET'])
+def all_proxies():
+    output_filename = "output/http.txt"
+    proxies = http_yanzheng.read_proxies_from_file(output_filename)
+    if proxies:
+        return jsonify(proxies)
+    else:
+        return jsonify([]), 200  # 返回空数组，状态码 200 更合适
 
 @app.route('/verify', methods=['GET'])
 def verify_route():
